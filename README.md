@@ -6,6 +6,9 @@ dashboard, and predicts high-value customers with a **Decision Tree Classifier**
 
 ---
 
+## Live Demo : https://shopping-behavior-analysis-using-ml.streamlit.app/
+
+
 ## 📌 Project Overview
 
 Retailers sit on transaction-level data that rarely gets turned into decisions. This
