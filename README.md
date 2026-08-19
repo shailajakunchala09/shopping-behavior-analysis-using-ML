@@ -179,4 +179,4 @@ streamlit run streamlit_predict_app.py
 
 ## 👤 Author
 
-[Your Name] — Data Analyst / BI Developer
+kunchala shailaja — Data Analyst / BI Developer
