@@ -124,6 +124,8 @@ def load_artifacts():
     with open(METRICS_PATH, "r", encoding="utf-8") as file:
         metrics = json.load(file)
 
+    # Dataset is still loaded internally.
+    # It is required for KPIs, Overview and Analytics.
     df = pd.read_csv(DATA_PATH)
 
     return model, encoders, metrics, df
@@ -136,9 +138,7 @@ try:
 except Exception as error:
 
     st.error("Unable to load project files.")
-
     st.code(str(error))
-
     st.stop()
 
 
@@ -154,14 +154,6 @@ total_features = len(df.columns)
 
 avg_purchase = float(
     df["Purchase Amount (USD)"].mean()
-)
-
-total_purchase = float(
-    df["Purchase Amount (USD)"].sum()
-)
-
-avg_rating = float(
-    df["Review Rating"].mean()
 )
 
 if "High Value Customer" in df.columns:
@@ -196,7 +188,6 @@ with st.sidebar:
             "Customer Prediction",
             "Analytics",
             "Model Insights",
-            "Dataset",
         ],
         label_visibility="collapsed",
     )
@@ -262,7 +253,7 @@ with k2:
     st.metric(
         label="👥 Customer Records",
         value=f"{total_records:,}",
-        help="Number of records in the dataset.",
+        help="Number of customer records used for analysis.",
     )
 
 
@@ -372,7 +363,7 @@ if page == "Overview":
         )
 
     # --------------------------------------------------------
-    # REVENUE BY CATEGORY
+    # REVENUE + CUSTOMER DEMOGRAPHICS
     # --------------------------------------------------------
 
     col1, col2 = st.columns(2)
@@ -402,10 +393,6 @@ if page == "Overview":
             use_container_width=True,
         )
 
-    # --------------------------------------------------------
-    # CUSTOMER GENDER
-    # --------------------------------------------------------
-
     with col2:
 
         fig = px.pie(
@@ -432,7 +419,7 @@ if page == "Overview":
         )
 
     # --------------------------------------------------------
-    # AGE DISTRIBUTION
+    # AGE DISTRIBUTION + CATEGORY REVENUE
     # --------------------------------------------------------
 
     col3, col4 = st.columns(2)
@@ -467,10 +454,6 @@ if page == "Overview":
             fig,
             use_container_width=True,
         )
-
-    # --------------------------------------------------------
-    # CATEGORY REVENUE
-    # --------------------------------------------------------
 
     with col4:
 
@@ -925,68 +908,6 @@ elif page == "Model Insights":
         "The feature importance chart shows how strongly "
         "each input variable contributes to the model's "
         "decision-making process."
-    )
-
-
-# ============================================================
-# DATASET
-# ============================================================
-
-elif page == "Dataset":
-
-    st.header("📁 Dataset Intelligence")
-
-    st.caption(
-        "Explore the dataset used by the Shopping Behaviour "
-        "Machine Learning platform."
-    )
-
-    st.divider()
-
-    d1, d2, d3, d4 = st.columns(4)
-
-    with d1:
-
-        st.metric(
-            "Records",
-            f"{total_records:,}",
-        )
-
-    with d2:
-
-        st.metric(
-            "Features",
-            f"{total_features}",
-        )
-
-    with d3:
-
-        st.metric(
-            "Total Revenue",
-            f"${total_purchase:,.0f}",
-        )
-
-    with d4:
-
-        st.metric(
-            "Average Rating",
-            f"{avg_rating:.2f} / 5",
-        )
-
-    st.divider()
-
-    st.subheader("Dataset Preview")
-
-    st.dataframe(
-        df.head(100),
-        use_container_width=True,
-        height=500,
-    )
-
-    st.subheader("Dataset Columns")
-
-    st.write(
-        df.columns.tolist()
     )
 
 
