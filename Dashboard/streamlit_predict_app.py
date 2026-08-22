@@ -13,125 +13,235 @@ import streamlit as st
 # ============================================================
 
 st.set_page_config(
-    page_title="Shopping Behaviour | Customer Intelligence",
+    page_title="Shopping Intelligence",
     page_icon="🛍️",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
 )
 
 
 # ============================================================
-# PROFESSIONAL UI
+# PREMIUM CSS
 # ============================================================
 
 st.markdown("""
 <style>
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
+}
+
 .stApp {
     background:
-        radial-gradient(circle at 10% 0%, rgba(99,102,241,.08), transparent 28%),
-        radial-gradient(circle at 90% 10%, rgba(14,165,233,.07), transparent 25%),
-        #f7f9fc;
+        radial-gradient(circle at 5% 0%, rgba(99,102,241,.13), transparent 25%),
+        radial-gradient(circle at 95% 5%, rgba(6,182,212,.10), transparent 25%),
+        #f5f7fb;
 }
 
 .block-container {
-    max-width: 1180px;
-    padding-top: 2rem;
-    padding-bottom: 3rem;
+    max-width: 1400px;
+    padding: 2rem 3rem 4rem;
 }
+
+
+/* SIDEBAR */
+
+section[data-testid="stSidebar"] {
+    background: #0f172a;
+    border-right: 1px solid rgba(255,255,255,.08);
+}
+
+section[data-testid="stSidebar"] * {
+    color: #e2e8f0 !important;
+}
+
+
+/* HERO */
 
 .hero {
-    background: linear-gradient(135deg,#111827,#1e293b,#334155);
-    border-radius: 24px;
-    padding: 2.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 16px 40px rgba(15,23,42,.14);
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(56,189,248,.25), transparent 25%),
+        radial-gradient(circle at 15% 80%, rgba(139,92,246,.25), transparent 25%),
+        linear-gradient(135deg,#0f172a,#172554,#312e81);
+    border-radius: 28px;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 25px 60px rgba(15,23,42,.20);
+    border: 1px solid rgba(255,255,255,.08);
 }
 
-.badge {
-    color: #e2e8f0;
-    background: rgba(255,255,255,.12);
-    border: 1px solid rgba(255,255,255,.18);
+.hero-badge {
+    display: inline-block;
+    padding: 7px 14px;
     border-radius: 999px;
-    padding: .35rem .8rem;
-    font-size: .75rem;
+    background: rgba(255,255,255,.10);
+    border: 1px solid rgba(255,255,255,.18);
+    color: #bae6fd;
+    font-size: 12px;
     font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .hero-title {
     color: white;
-    font-size: 2.35rem;
+    font-size: 42px;
     font-weight: 800;
-    margin-top: 1rem;
+    letter-spacing: -1.5px;
+    margin: 18px 0 8px;
 }
 
-.hero-subtitle {
+.hero-text {
     color: #cbd5e1;
-    font-size: 1rem;
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 760px;
 }
+
+.hero-highlight {
+    color: #67e8f9;
+    font-weight: 800;
+}
+
+
+/* SECTION */
 
 .section-title {
-    font-size: 1.35rem;
+    color: #0f172a;
+    font-size: 25px;
     font-weight: 800;
-    color: #111827;
-    margin-top: 1.4rem;
+    margin-top: 30px;
+    margin-bottom: 4px;
 }
 
 .section-subtitle {
     color: #64748b;
-    margin-bottom: 1rem;
+    font-size: 14px;
+    margin-bottom: 18px;
 }
 
-.kpi-card {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 18px;
-    padding: 1.2rem;
-    min-height: 110px;
-    box-shadow: 0 8px 24px rgba(15,23,42,.05);
+
+/* KPI */
+
+.kpi {
+    background: rgba(255,255,255,.90);
+    backdrop-filter: blur(12px);
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 22px;
+    min-height: 140px;
+    box-shadow: 0 12px 35px rgba(15,23,42,.06);
+    transition: .2s ease;
+}
+
+.kpi:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 45px rgba(15,23,42,.10);
+}
+
+.kpi-icon {
+    font-size: 25px;
 }
 
 .kpi-label {
     color: #64748b;
-    font-size: .78rem;
+    font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: .7px;
+    margin-top: 8px;
 }
 
 .kpi-value {
-    color: #111827;
-    font-size: 1.65rem;
+    color: #0f172a;
+    font-size: 30px;
     font-weight: 800;
-    margin-top: .35rem;
+    margin-top: 4px;
 }
 
 .kpi-note {
     color: #94a3b8;
-    font-size: .75rem;
+    font-size: 12px;
+    margin-top: 5px;
 }
+
+
+/* CARDS */
+
+.card {
+    background: rgba(255,255,255,.94);
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow: 0 12px 35px rgba(15,23,42,.055);
+}
+
+
+/* FORM */
 
 div[data-testid="stForm"] {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 20px;
-    padding: 1.5rem;
-    box-shadow: 0 10px 30px rgba(15,23,42,.06);
+    background: rgba(255,255,255,.96);
+    border: 1px solid #e2e8f0;
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 15px 40px rgba(15,23,42,.07);
 }
 
-.result-card {
-    background: white;
-    border-radius: 20px;
-    border: 1px solid #e5e7eb;
-    padding: 1.4rem;
-    margin-top: 1rem;
-    box-shadow: 0 10px 30px rgba(15,23,42,.06);
+
+/* BUTTON */
+
+.stButton > button,
+.stFormSubmitButton > button {
+    border-radius: 12px;
+    font-weight: 700;
+    min-height: 48px;
 }
+
+
+/* METRICS */
+
+div[data-testid="stMetric"] {
+    background: white;
+    border: 1px solid #e2e8f0;
+    padding: 15px;
+    border-radius: 16px;
+}
+
+
+/* RESULT */
+
+.prediction-card {
+    background:
+        linear-gradient(135deg,#ecfeff,#eef2ff);
+    border: 1px solid #c7d2fe;
+    border-radius: 22px;
+    padding: 25px;
+    margin-top: 20px;
+}
+
+.prediction-title {
+    font-size: 25px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.prediction-text {
+    color: #64748b;
+}
+
+
+/* FOOTER */
 
 .footer {
+    margin-top: 50px;
+    padding: 25px;
     text-align: center;
     color: #94a3b8;
-    font-size: .78rem;
-    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+    font-size: 12px;
 }
 
 </style>
@@ -151,25 +261,11 @@ DATA_PATH = BASE_DIR / "Dataset" / "shopping_behavior_cleaned.csv"
 
 
 # ============================================================
-# LOAD FILES
+# LOAD PROJECT FILES
 # ============================================================
 
 @st.cache_resource
 def load_artifacts():
-
-    required_files = {
-        "Model": MODEL_PATH,
-        "Encoders": ENCODERS_PATH,
-        "Metrics": METRICS_PATH,
-        "Dataset": DATA_PATH,
-    }
-
-    for name, path in required_files.items():
-
-        if not path.exists():
-            raise FileNotFoundError(
-                f"{name} file not found:\n{path}"
-            )
 
     with open(MODEL_PATH, "rb") as f:
         model = pickle.load(f)
@@ -192,12 +288,12 @@ try:
 except Exception as e:
 
     st.error("Unable to load project files.")
-    st.error(str(e))
+    st.code(str(e))
     st.stop()
 
 
 # ============================================================
-# KPI VALUES
+# DATA VALUES
 # ============================================================
 
 accuracy = float(metrics["accuracy"])
@@ -214,15 +310,61 @@ total_purchase = float(
     df["Purchase Amount (USD)"].sum()
 )
 
-if "High Value Customer" in df.columns:
+avg_rating = float(
+    df["Review Rating"].mean()
+)
 
+if "High Value Customer" in df.columns:
     high_value_rate = float(
         df["High Value Customer"].mean()
     )
-
 else:
-
     high_value_rate = 0
+
+
+# ============================================================
+# SIDEBAR
+# ============================================================
+
+with st.sidebar:
+
+    st.markdown("## 🛍️ Shopping AI")
+
+    st.markdown("---")
+
+    st.markdown("### Dashboard")
+
+    page = st.radio(
+        "Navigate",
+        [
+            "Overview",
+            "Customer Prediction",
+            "Analytics",
+            "Model Insights",
+            "Dataset"
+        ],
+        label_visibility="collapsed"
+    )
+
+    st.markdown("---")
+
+    st.markdown("### Model")
+
+    st.success("Decision Tree • Online")
+
+    st.caption(
+        f"Accuracy: {accuracy:.1%}"
+    )
+
+    st.markdown("---")
+
+    st.caption(
+        "Shopping Behaviour Intelligence"
+    )
+
+    st.caption(
+        "Python • Pandas • Scikit-learn • Plotly"
+    )
 
 
 # ============================================================
@@ -230,405 +372,607 @@ else:
 # ============================================================
 
 st.markdown(f"""
+
 <div class="hero">
 
-<span class="badge">
-LIVE MACHINE LEARNING DASHBOARD
+<span class="hero-badge">
+● LIVE MACHINE LEARNING PLATFORM
 </span>
 
 <div class="hero-title">
 🛍️ Shopping Behaviour Intelligence
 </div>
 
-<p class="hero-subtitle">
-Predict high-value customers, explore purchasing patterns,
-and understand what drives customer value.
-Decision Tree accuracy: <b>{accuracy:.1%}</b>
-</p>
+<div class="hero-text">
+Transform shopping data into actionable customer intelligence.
+Predict high-value customers, discover purchasing patterns,
+and understand the factors influencing customer value.
+<br><br>
+Decision Tree model accuracy:
+<span class="hero-highlight">
+{accuracy:.1%}
+</span>
+</div>
 
 </div>
+
 """, unsafe_allow_html=True)
 
 
 # ============================================================
-# KPI CARDS
+# KPI ROW
 # ============================================================
 
-c1, c2, c3, c4 = st.columns(4)
+k1, k2, k3, k4 = st.columns(4)
 
-with c1:
+with k1:
 
     st.markdown(f"""
-    <div class="kpi-card">
-    <div class="kpi-label">Model Accuracy</div>
-    <div class="kpi-value">{accuracy:.1%}</div>
-    <div class="kpi-note">Decision Tree accuracy</div>
+    <div class="kpi">
+        <div class="kpi-icon">🎯</div>
+        <div class="kpi-label">Model Accuracy</div>
+        <div class="kpi-value">{accuracy:.1%}</div>
+        <div class="kpi-note">Decision Tree performance</div>
     </div>
     """, unsafe_allow_html=True)
 
-with c2:
+
+with k2:
 
     st.markdown(f"""
-    <div class="kpi-card">
-    <div class="kpi-label">Customer Records</div>
-    <div class="kpi-value">{total_records:,}</div>
-    <div class="kpi-note">Dataset transactions</div>
+    <div class="kpi">
+        <div class="kpi-icon">👥</div>
+        <div class="kpi-label">Customer Records</div>
+        <div class="kpi-value">{total_records:,}</div>
+        <div class="kpi-note">Shopping transactions</div>
     </div>
     """, unsafe_allow_html=True)
 
-with c3:
+
+with k3:
 
     st.markdown(f"""
-    <div class="kpi-card">
-    <div class="kpi-label">Average Purchase</div>
-    <div class="kpi-value">${avg_purchase:,.2f}</div>
-    <div class="kpi-note">Average transaction</div>
+    <div class="kpi">
+        <div class="kpi-icon">💰</div>
+        <div class="kpi-label">Avg. Purchase</div>
+        <div class="kpi-value">${avg_purchase:,.2f}</div>
+        <div class="kpi-note">Average transaction value</div>
     </div>
     """, unsafe_allow_html=True)
 
-with c4:
+
+with k4:
 
     st.markdown(f"""
-    <div class="kpi-card">
-    <div class="kpi-label">High Value Rate</div>
-    <div class="kpi-value">{high_value_rate:.1%}</div>
-    <div class="kpi-note">High-value customers</div>
+    <div class="kpi">
+        <div class="kpi-icon">⭐</div>
+        <div class="kpi-label">High Value Rate</div>
+        <div class="kpi-value">{high_value_rate:.1%}</div>
+        <div class="kpi-note">High-value customer segment</div>
     </div>
     """, unsafe_allow_html=True)
 
 
 # ============================================================
-# PREDICTION
+# OVERVIEW
 # ============================================================
 
-st.markdown(
-    '<div class="section-title">🎯 Live Customer Prediction</div>',
-    unsafe_allow_html=True
-)
+if page == "Overview":
 
-st.markdown(
-    '<div class="section-subtitle">Enter a customer profile and predict customer value.</div>',
-    unsafe_allow_html=True
-)
+    st.markdown(
+        '<div class="section-title">📊 Executive Overview</div>',
+        unsafe_allow_html=True
+    )
 
-
-with st.form("predict_form"):
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-
-        age = st.slider(
-            "Age",
-            18,
-            70,
-            32
-        )
-
-        gender = st.selectbox(
-            "Gender",
-            encoders["Gender"].classes_
-        )
-
-        category = st.selectbox(
-            "Category",
-            encoders["Category"].classes_
-        )
-
-    with col2:
-
-        item = st.selectbox(
-            "Item Purchased",
-            encoders["Item Purchased"].classes_
-        )
-
-        amount = st.number_input(
-            "Purchase Amount (USD)",
-            1,
-            500,
-            50
-        )
-
-    submitted = st.form_submit_button(
-        "🔮 Predict Customer Value",
-        type="primary",
-        use_container_width=True
+    st.markdown(
+        '<div class="section-subtitle">A high-level view of customer behaviour and business performance.</div>',
+        unsafe_allow_html=True
     )
 
 
-# ============================================================
-# RESULT
-# ============================================================
+    # --------------------------------------------------------
+    # CATEGORY SALES
+    # --------------------------------------------------------
 
-if submitted:
+    category_sales = (
+        df.groupby("Category", as_index=False)
+        ["Purchase Amount (USD)"]
+        .sum()
+        .sort_values(
+            "Purchase Amount (USD)",
+            ascending=False
+        )
+    )
 
-    try:
 
-        row = pd.DataFrame([{
+    # --------------------------------------------------------
+    # GENDER
+    # --------------------------------------------------------
 
-            "Age": age,
+    gender_counts = (
+        df["Gender"]
+        .value_counts()
+        .rename_axis("Gender")
+        .reset_index(name="Customers")
+    )
 
-            "Gender Encoded":
-                encoders["Gender"].transform([gender])[0],
 
-            "Category Encoded":
-                encoders["Category"].transform([category])[0],
+    # --------------------------------------------------------
+    # AGE
+    # --------------------------------------------------------
 
-            "Item Purchased Encoded":
-                encoders["Item Purchased"].transform([item])[0],
+    if "Age Group" in df.columns:
 
-            "Purchase Amount (USD)": amount
+        age_order = [
+            "18-25",
+            "26-35",
+            "36-45",
+            "46-55",
+            "56-70"
+        ]
 
-        }])
-
-        pred = model.predict(row)[0]
-
-        proba = model.predict_proba(row)[0]
-
-        if pred == 1:
-
-            label = "High Value Customer"
-
-            confidence = float(proba[1])
-
-            icon = "🟢"
-
-            message = (
-                "This profile matches the high-value "
-                "customer segment."
+        age_counts = (
+            df["Age Group"]
+            .value_counts()
+            .reindex(
+                age_order,
+                fill_value=0
             )
+            .rename_axis("Age Group")
+            .reset_index(name="Customers")
+        )
 
-        else:
+    else:
 
-            label = "Standard Customer"
+        df["Age Group"] = pd.cut(
+            df["Age"],
+            bins=[17,25,35,45,55,70],
+            labels=[
+                "18-25",
+                "26-35",
+                "36-45",
+                "46-55",
+                "56-70"
+            ]
+        )
 
-            confidence = float(proba[0])
+        age_counts = (
+            df["Age Group"]
+            .value_counts()
+            .sort_index()
+            .rename_axis("Age Group")
+            .reset_index(name="Customers")
+        )
 
-            icon = "🔵"
 
-            message = (
-                "This profile currently matches the "
-                "standard customer segment."
+    # --------------------------------------------------------
+    # CHART 1
+    # --------------------------------------------------------
+
+    c1, c2 = st.columns(2)
+
+
+    with c1:
+
+        fig = px.pie(
+            category_sales,
+            names="Category",
+            values="Purchase Amount (USD)",
+            hole=.65,
+            title="Revenue Distribution by Category"
+        )
+
+        fig.update_traces(
+            textposition="inside",
+            textinfo="percent+label",
+            hovertemplate=
+            "<b>%{label}</b><br>"
+            "Revenue: $%{value:,.0f}<br>"
+            "Share: %{percent}<extra></extra>"
+        )
+
+        fig.update_layout(
+            height=430,
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            margin=dict(t=70,b=20,l=10,r=10),
+            legend=dict(
+                orientation="h",
+                y=-0.08
             )
-
-
-        st.markdown(f"""
-
-        <div class="result-card">
-
-        <h3>
-        {icon} {label}
-        </h3>
-
-        <p style="color:#64748b;">
-        {message}
-        </p>
-
-        </div>
-
-        """, unsafe_allow_html=True)
-
-
-        r1, r2, r3 = st.columns(3)
-
-        r1.metric(
-            "Prediction",
-            label
-        )
-
-        r2.metric(
-            "Confidence",
-            f"{confidence:.1%}"
-        )
-
-        r3.metric(
-            "Purchase Amount",
-            f"${amount:,.0f}"
-        )
-
-
-        # Confidence donut
-
-        confidence_fig = go.Figure(
-            go.Pie(
-                labels=["Confidence", "Remaining"],
-                values=[
-                    confidence,
-                    1 - confidence
-                ],
-                hole=.72,
-                textinfo="none",
-                marker=dict(
-                    colors=[
-                        "#16a34a"
-                        if pred == 1
-                        else "#64748b",
-                        "#e5e7eb"
-                    ]
-                )
-            )
-        )
-
-        confidence_fig.update_layout(
-
-            title="Prediction Confidence",
-
-            height=280,
-
-            margin=dict(
-                t=55,
-                b=10,
-                l=10,
-                r=10
-            ),
-
-            showlegend=False,
-
-            annotations=[{
-                "text": f"<b>{confidence:.0%}</b>",
-                "x": .5,
-                "y": .5,
-                "font": {
-                    "size": 28,
-                    "color": "#111827"
-                },
-                "showarrow": False
-            }]
-
         )
 
         st.plotly_chart(
-            confidence_fig,
+            fig,
             use_container_width=True
         )
 
 
-    except Exception as e:
+    # --------------------------------------------------------
+    # CHART 2
+    # --------------------------------------------------------
 
-        st.error("Prediction failed.")
+    with c2:
 
-        st.error(str(e))
+        fig = px.pie(
+            gender_counts,
+            names="Gender",
+            values="Customers",
+            hole=.65,
+            title="Customer Demographics"
+        )
+
+        fig.update_traces(
+            textposition="inside",
+            textinfo="percent+label",
+            hovertemplate=
+            "<b>%{label}</b><br>"
+            "Customers: %{value:,}<br>"
+            "Share: %{percent}<extra></extra>"
+        )
+
+        fig.update_layout(
+            height=430,
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            margin=dict(t=70,b=20,l=10,r=10)
+        )
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True
+        )
+
+
+    # --------------------------------------------------------
+    # AGE + CATEGORY BAR
+    # --------------------------------------------------------
+
+    c3, c4 = st.columns(2)
+
+
+    with c3:
+
+        fig = px.bar(
+            age_counts,
+            x="Age Group",
+            y="Customers",
+            text="Customers",
+            title="Customer Distribution by Age"
+        )
+
+        fig.update_traces(
+            textposition="outside",
+            hovertemplate=
+            "<b>%{x}</b><br>"
+            "Customers: %{y:,}<extra></extra>"
+        )
+
+        fig.update_layout(
+            height=420,
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            yaxis_title="Customers",
+            xaxis_title=""
+        )
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True
+        )
+
+
+    with c4:
+
+        fig = px.bar(
+            category_sales,
+            x="Purchase Amount (USD)",
+            y="Category",
+            orientation="h",
+            text="Purchase Amount (USD)",
+            title="Revenue by Product Category"
+        )
+
+        fig.update_traces(
+            texttemplate="$%{text:,.0f}",
+            textposition="outside",
+            hovertemplate=
+            "<b>%{y}</b><br>"
+            "Revenue: $%{x:,.0f}<extra></extra>"
+        )
+
+        fig.update_layout(
+            height=420,
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)",
+            xaxis_title="Revenue",
+            yaxis_title=""
+        )
+
+        st.plotly_chart(
+            fig,
+            use_container_width=True
+        )
 
 
 # ============================================================
-# ANALYTICS
+# CUSTOMER PREDICTION
 # ============================================================
 
-st.markdown(
-    '<div class="section-title">📊 Customer Analytics</div>',
-    unsafe_allow_html=True
-)
+elif page == "Customer Prediction":
 
-st.markdown(
-    '<div class="section-subtitle">Interactive insights from the shopping behaviour dataset.</div>',
-    unsafe_allow_html=True
-)
-
-
-# CATEGORY SALES
-
-category_sales = (
-    df.groupby(
-        "Category",
-        as_index=False
-    )["Purchase Amount (USD)"]
-    .sum()
-    .sort_values(
-        "Purchase Amount (USD)",
-        ascending=False
+    st.markdown(
+        '<div class="section-title">🎯 Customer Intelligence Engine</div>',
+        unsafe_allow_html=True
     )
-)
 
-
-# GENDER
-
-gender_counts = (
-    df["Gender"]
-    .value_counts()
-    .rename_axis("Gender")
-    .reset_index(name="Customers")
-)
-
-
-# AGE
-
-age_order = [
-    "18-25",
-    "26-35",
-    "36-45",
-    "46-55",
-    "56-70"
-]
-
-age_counts = (
-    df["Age Group"]
-    .value_counts()
-    .reindex(
-        age_order,
-        fill_value=0
+    st.markdown(
+        '<div class="section-subtitle">Create a customer profile and generate a machine-learning prediction.</div>',
+        unsafe_allow_html=True
     )
-    .rename_axis("Age Group")
-    .reset_index(name="Customers")
-)
 
 
-# SPENDING SEGMENT
+    with st.form("prediction_form"):
 
-segment_counts = (
-    df["Spending Segment"]
-    .value_counts()
-    .rename_axis("Spending Segment")
-    .reset_index(name="Customers")
-)
+        col1, col2 = st.columns(2)
+
+
+        with col1:
+
+            age = st.slider(
+                "Customer Age",
+                18,
+                70,
+                32
+            )
+
+            gender = st.selectbox(
+                "Gender",
+                encoders["Gender"].classes_
+            )
+
+            category = st.selectbox(
+                "Product Category",
+                encoders["Category"].classes_
+            )
+
+
+        with col2:
+
+            item = st.selectbox(
+                "Product Purchased",
+                encoders["Item Purchased"].classes_
+            )
+
+            amount = st.number_input(
+                "Purchase Amount (USD)",
+                min_value=1,
+                max_value=500,
+                value=50
+            )
+
+
+        submitted = st.form_submit_button(
+            "🚀 Analyze Customer",
+            type="primary",
+            use_container_width=True
+        )
+
+
+    if submitted:
+
+        try:
+
+            row = pd.DataFrame([{
+
+                "Age": age,
+
+                "Gender Encoded":
+                    encoders["Gender"]
+                    .transform([gender])[0],
+
+                "Category Encoded":
+                    encoders["Category"]
+                    .transform([category])[0],
+
+                "Item Purchased Encoded":
+                    encoders["Item Purchased"]
+                    .transform([item])[0],
+
+                "Purchase Amount (USD)": amount
+
+            }])
+
+
+            prediction = model.predict(row)[0]
+
+            probabilities = model.predict_proba(row)[0]
+
+
+            if prediction == 1:
+
+                label = "High Value Customer"
+
+                confidence = float(probabilities[1])
+
+                icon = "🟢"
+
+                color = "#10b981"
+
+            else:
+
+                label = "Standard Customer"
+
+                confidence = float(probabilities[0])
+
+                icon = "🔵"
+
+                color = "#6366f1"
+
+
+            st.markdown(f"""
+
+            <div class="prediction-card">
+
+                <div class="prediction-title">
+                    {icon} {label}
+                </div>
+
+                <div class="prediction-text">
+                    Machine learning analysis completed successfully.
+                    The model confidence is
+                    <b>{confidence:.1%}</b>.
+                </div>
+
+            </div>
+
+            """, unsafe_allow_html=True)
+
+
+            r1, r2, r3 = st.columns(3)
+
+
+            r1.metric(
+                "Customer Segment",
+                label
+            )
+
+            r2.metric(
+                "Confidence",
+                f"{confidence:.1%}"
+            )
+
+            r3.metric(
+                "Purchase Amount",
+                f"${amount:,.0f}"
+            )
+
+
+            # CONFIDENCE DONUT
+
+            fig = go.Figure(
+
+                go.Pie(
+
+                    labels=[
+                        "Confidence",
+                        "Remaining"
+                    ],
+
+                    values=[
+                        confidence,
+                        1-confidence
+                    ],
+
+                    hole=.75,
+
+                    marker=dict(
+                        colors=[
+                            color,
+                            "#e2e8f0"
+                        ]
+                    ),
+
+                    textinfo="none"
+
+                )
+
+            )
+
+
+            fig.update_layout(
+
+                title="Prediction Confidence",
+
+                height=350,
+
+                showlegend=False,
+
+                paper_bgcolor="rgba(0,0,0,0)",
+
+                plot_bgcolor="rgba(0,0,0,0)",
+
+                margin=dict(
+                    t=70,
+                    b=10,
+                    l=10,
+                    r=10
+                ),
+
+                annotations=[
+
+                    {
+
+                        "text":
+                        f"<b>{confidence:.0%}</b>"
+                        "<br><sup>Confidence</sup>",
+
+                        "x": .5,
+
+                        "y": .5,
+
+                        "showarrow": False,
+
+                        "font": {
+                            "size": 24,
+                            "color": "#0f172a"
+                        }
+
+                    }
+
+                ]
+
+            )
+
+
+            st.plotly_chart(
+                fig,
+                use_container_width=True
+            )
+
+
+        except Exception as e:
+
+            st.error("Prediction failed.")
+
+            st.code(str(e))
 
 
 # ============================================================
-# CHART 1 + 2
+# ADVANCED ANALYTICS
 # ============================================================
 
-chart1, chart2 = st.columns(2)
+elif page == "Analytics":
 
-
-with chart1:
-
-    fig = px.pie(
-
-        category_sales,
-
-        names="Category",
-
-        values="Purchase Amount (USD)",
-
-        hole=.58,
-
-        title="Purchase Value by Category"
-
+    st.markdown(
+        '<div class="section-title">📊 Advanced Customer Analytics</div>',
+        unsafe_allow_html=True
     )
 
-    fig.update_traces(
+    st.markdown(
+        '<div class="section-subtitle">Explore customer behaviour, spending patterns and product performance.</div>',
+        unsafe_allow_html=True
+    )
 
-        textposition="inside",
 
-        textinfo="percent+label",
+    # -----------------------------------------------
+    # SPENDING DISTRIBUTION
+    # -----------------------------------------------
 
-        hovertemplate=
-        "%{label}<br>"
-        "$%{value:,.0f}<br>"
-        "%{percent}<extra></extra>"
-
+    fig = px.histogram(
+        df,
+        x="Purchase Amount (USD)",
+        nbins=30,
+        marginal="box",
+        title="Purchase Amount Distribution"
     )
 
     fig.update_layout(
-
-        height=390,
-
-        margin=dict(
-            t=60,
-            b=10,
-            l=10,
-            r=10
-        )
-
+        height=450,
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        xaxis_title="Purchase Amount (USD)",
+        yaxis_title="Customers"
     )
 
     st.plotly_chart(
@@ -637,46 +981,72 @@ with chart1:
     )
 
 
-with chart2:
+    # -----------------------------------------------
+    # RATING VS PURCHASE
+    # -----------------------------------------------
 
-    fig = px.pie(
+    if "Review Rating" in df.columns:
 
-        gender_counts,
+        fig = px.scatter(
+            df,
+            x="Review Rating",
+            y="Purchase Amount (USD)",
+            color="Category",
+            size="Purchase Amount (USD)",
+            hover_data=[
+                "Age",
+                "Gender"
+            ],
+            title="Customer Rating vs Purchase Amount"
+        )
 
-        names="Gender",
+        fig.update_layout(
+            height=500,
+            paper_bgcolor="rgba(0,0,0,0)",
+            plot_bgcolor="rgba(0,0,0,0)"
+        )
 
-        values="Customers",
+        st.plotly_chart(
+            fig,
+            use_container_width=True
+        )
 
-        hole=.58,
 
-        title="Customer Gender Distribution"
+    # -----------------------------------------------
+    # TOP PRODUCTS
+    # -----------------------------------------------
 
+    product_sales = (
+        df.groupby("Item Purchased")
+        ["Purchase Amount (USD)"]
+        .sum()
+        .sort_values(
+            ascending=False
+        )
+        .head(10)
+        .sort_values()
+        .reset_index()
+    )
+
+
+    fig = px.bar(
+        product_sales,
+        x="Purchase Amount (USD)",
+        y="Item Purchased",
+        orientation="h",
+        text="Purchase Amount (USD)",
+        title="Top 10 Products by Revenue"
     )
 
     fig.update_traces(
-
-        textposition="inside",
-
-        textinfo="percent+label",
-
-        hovertemplate=
-        "%{label}<br>"
-        "%{value:,} customers<br>"
-        "%{percent}<extra></extra>"
-
+        texttemplate="$%{text:,.0f}",
+        textposition="outside"
     )
 
     fig.update_layout(
-
-        height=390,
-
-        margin=dict(
-            t=60,
-            b=10,
-            l=10,
-            r=10
-        )
-
+        height=500,
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)"
     )
 
     st.plotly_chart(
@@ -686,50 +1056,88 @@ with chart2:
 
 
 # ============================================================
-# CHART 3 + 4
+# MODEL INSIGHTS
 # ============================================================
 
-chart3, chart4 = st.columns(2)
+elif page == "Model Insights":
+
+    st.markdown(
+        '<div class="section-title">🧠 Model Intelligence</div>',
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        '<div class="section-subtitle">Understand which variables influence the Decision Tree prediction.</div>',
+        unsafe_allow_html=True
+    )
 
 
-with chart3:
+    feature_importance = (
+
+        pd.Series(
+            metrics["feature_importance"],
+            name="Importance"
+        )
+
+        .sort_values(
+            ascending=True
+        )
+
+        .reset_index()
+
+        .rename(
+            columns={
+                "index": "Feature"
+            }
+        )
+
+    )
+
 
     fig = px.bar(
 
-        age_counts,
+        feature_importance,
 
-        x="Age Group",
+        x="Importance",
 
-        y="Customers",
+        y="Feature",
 
-        text="Customers",
+        orientation="h",
 
-        title="Customers by Age Group"
+        text="Importance",
+
+        title="Decision Tree Feature Importance"
 
     )
 
+
     fig.update_traces(
+
+        texttemplate="%{text:.1%}",
 
         textposition="outside",
 
         hovertemplate=
-        "%{x}<br>"
-        "%{y:,} customers<extra></extra>"
+        "<b>%{y}</b><br>"
+        "Importance: %{x:.1%}<extra></extra>"
 
     )
+
 
     fig.update_layout(
 
-        height=390,
+        height=520,
 
-        margin=dict(
-            t=60,
-            b=10,
-            l=10,
-            r=10
-        )
+        paper_bgcolor="rgba(0,0,0,0)",
+
+        plot_bgcolor="rgba(0,0,0,0)",
+
+        xaxis_title="Relative Importance",
+
+        yaxis_title=""
 
     )
+
 
     st.plotly_chart(
         fig,
@@ -737,185 +1145,80 @@ with chart3:
     )
 
 
-with chart4:
+    # MODEL SUMMARY
 
-    fig = px.pie(
+    m1, m2, m3 = st.columns(3)
 
-        segment_counts,
-
-        names="Spending Segment",
-
-        values="Customers",
-
-        hole=.58,
-
-        title="Spending Segment Mix"
-
+    m1.metric(
+        "Accuracy",
+        f"{accuracy:.1%}"
     )
 
-    fig.update_traces(
-
-        textposition="inside",
-
-        textinfo="percent+label",
-
-        hovertemplate=
-        "%{label}<br>"
-        "%{value:,} customers<br>"
-        "%{percent}<extra></extra>"
-
+    m2.metric(
+        "Algorithm",
+        "Decision Tree"
     )
 
-    fig.update_layout(
-
-        height=390,
-
-        margin=dict(
-            t=60,
-            b=10,
-            l=10,
-            r=10
-        )
-
-    )
-
-    st.plotly_chart(
-        fig,
-        use_container_width=True
+    m3.metric(
+        "Features",
+        total_features
     )
 
 
 # ============================================================
-# FEATURE IMPORTANCE
+# DATASET
 # ============================================================
 
-st.markdown(
-    '<div class="section-title">🧠 What Drives the Prediction?</div>',
-    unsafe_allow_html=True
-)
+elif page == "Dataset":
 
-st.markdown(
-    '<div class="section-subtitle">Features contributing most to the Decision Tree model.</div>',
-    unsafe_allow_html=True
-)
-
-
-feature_importance = (
-
-    pd.Series(
-        metrics["feature_importance"],
-        name="Importance"
+    st.markdown(
+        '<div class="section-title">📁 Dataset Intelligence</div>',
+        unsafe_allow_html=True
     )
 
-    .sort_values(
-        ascending=True
+    st.markdown(
+        '<div class="section-subtitle">Explore the underlying shopping behaviour dataset.</div>',
+        unsafe_allow_html=True
     )
 
-    .reset_index()
 
-    .rename(
-        columns={
-            "index": "Feature"
-        }
+    d1, d2, d3, d4 = st.columns(4)
+
+
+    d1.metric(
+        "Records",
+        f"{total_records:,}"
     )
 
-)
+    d2.metric(
+        "Features",
+        f"{total_features}"
+    )
+
+    d3.metric(
+        "Total Revenue",
+        f"${total_purchase:,.0f}"
+    )
+
+    d4.metric(
+        "Average Rating",
+        f"{avg_rating:.2f} / 5"
+    )
 
 
-fig = px.bar(
+    st.markdown("### Dataset Preview")
 
-    feature_importance,
-
-    x="Importance",
-
-    y="Feature",
-
-    orientation="h",
-
-    text="Importance",
-
-    title="Decision Tree Feature Importance"
-
-)
+    st.dataframe(
+        df.head(100),
+        use_container_width=True,
+        height=500
+    )
 
 
-fig.update_traces(
-
-    texttemplate="%{text:.1%}",
-
-    textposition="outside",
-
-    hovertemplate=
-    "%{y}<br>"
-    "Importance: %{x:.1%}<extra></extra>"
-
-)
-
-
-fig.update_layout(
-
-    height=430,
-
-    margin=dict(
-        t=60,
-        b=20,
-        l=20,
-        r=60
-    ),
-
-    xaxis_title="Relative importance",
-
-    yaxis_title=""
-
-)
-
-
-st.plotly_chart(
-    fig,
-    use_container_width=True
-)
-
-
-# ============================================================
-# DATASET INFORMATION
-# ============================================================
-
-st.markdown(
-    '<div class="section-title">📁 Dataset Overview</div>',
-    unsafe_allow_html=True
-)
-
-
-d1, d2, d3, d4 = st.columns(4)
-
-
-d1.metric(
-    "Total Records",
-    f"{total_records:,}"
-)
-
-d2.metric(
-    "Total Features",
-    f"{total_features:,}"
-)
-
-d3.metric(
-    "Total Purchase Value",
-    f"${total_purchase:,.0f}"
-)
-
-d4.metric(
-    "Average Rating",
-    f"{df['Review Rating'].mean():.2f} / 5"
-)
-
-
-with st.expander("View Dataset Columns"):
+    st.markdown("### Dataset Columns")
 
     st.write(
-        ", ".join(
-            df.columns.tolist()
-        )
+        df.columns.tolist()
     )
 
 
@@ -926,9 +1229,8 @@ with st.expander("View Dataset Columns"):
 st.markdown("""
 <div class="footer">
 
-Shopping Behaviour Analytics •
-Decision Tree Machine Learning •
-Python • Pandas • Scikit-learn • Plotly • Streamlit
+<b>Shopping Behaviour Intelligence</b><br>
+Decision Tree Machine Learning • Python • Pandas • Scikit-learn • Plotly • Streamlit
 
 </div>
 """, unsafe_allow_html=True)
